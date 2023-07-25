@@ -1,8 +1,5 @@
 package ups.edu.ec.ProyectoParqueadero.Negocio;
 
-import java.util.Date;
-import java.util.List;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
@@ -27,7 +24,6 @@ public class DemoDatos {
 	
 	@Inject
 	private DAOEstacionamiento daoestacionamiento;
-	
 	
 	
 	@PostConstruct
@@ -64,14 +60,6 @@ public class DemoDatos {
 		c3.setDireccion("San Roque"); 
 		daopersona.insertar(c3);
 		
-		
-		Persona c4= new Persona ();
-		//c.setCodigo(1);
-		c4.setCedula("1234567890");
-		c4.setNombre("marley500");
-		c4.setDireccion("cuenca"); 
-		daopersona.insertar(c4);
-		//daocliente.read("0105541510");
 		
 		
 		Vehiculo veh=new Vehiculo();

@@ -36,5 +36,4 @@ public class Estacionamiento {
 	public String toString() {
 		return "Estacionamiento [codigo=" + codigo + ", espacio=" + espacio + "]";
 	}
-	
 }
