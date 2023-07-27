@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Persona {
+	
 	@Id
 	@Column(name="per_cedula")
 	private String cedula;

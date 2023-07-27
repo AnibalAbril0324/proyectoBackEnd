@@ -1,14 +1,22 @@
 package ups.edu.ec.ProyectoParqueadero.Negocio;
 
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import jakarta.inject.Inject;
+import ups.edu.ec.ProyectoParqueadero.Datos.DAODetalleTicket;
 import ups.edu.ec.ProyectoParqueadero.Datos.DAOEstacionamiento;
 import ups.edu.ec.ProyectoParqueadero.Datos.DAOPersona;
+import ups.edu.ec.ProyectoParqueadero.Datos.DAOTicket;
 import ups.edu.ec.ProyectoParqueadero.Datos.DAOVehiculo;
+import ups.edu.ec.ProyectoParqueadero.Modelo.DetalleTicket;
 import ups.edu.ec.ProyectoParqueadero.Modelo.Estacionamiento;
 import ups.edu.ec.ProyectoParqueadero.Modelo.Persona;
+import ups.edu.ec.ProyectoParqueadero.Modelo.Ticket;
 import ups.edu.ec.ProyectoParqueadero.Modelo.Vehiculo;
 
 
@@ -25,6 +33,11 @@ public class DemoDatos {
 	@Inject
 	private DAOEstacionamiento daoestacionamiento;
 	
+	@Inject
+	private DAODetalleTicket daodetalleticket;
+	
+	@Inject
+	private DAOTicket daoticket;
 	
 	@PostConstruct
 	public void init()  {
@@ -87,7 +100,7 @@ public class DemoDatos {
 		daovehiculo.insertar(veh3);
 		
 		Estacionamiento est=new Estacionamiento();
-		est.setEspacio("Vacio");
+		est.setEspacio("Ocupado");
 		daoestacionamiento.insertar(est);
 		
 		Estacionamiento est1=new Estacionamiento();
@@ -97,6 +110,29 @@ public class DemoDatos {
 		Estacionamiento est2=new Estacionamiento();
 		est2.setEspacio("Vacio");
 		daoestacionamiento.insertar(est2);
-			
+		
+		
+		Ticket tic =new Ticket();
+		tic.setNumero("001-001-0001");
+		tic.setFecha(new Date());
+		tic.setCliente(c);
+		
+		DetalleTicket det= new DetalleTicket();
+		det.setEstacionamiento(est);
+		det.setVehiculo(veh3);
+		det.setHoraentrada(LocalTime.now());
+		det.setHorasalida(LocalTime.now());
+		daodetalleticket.insertar(det);
+		
+		tic.addDetalle(det);
+		daoticket.insertar(tic);
+		
+		System.out.println("llego aqui");
+		
+		List<Ticket> tickets = daoticket.getAll();
+		for(Ticket ti: tickets) {
+			System.out.println("codigo: "+ti.getCodigo() + "ticket #: " + ti.getNumero() + "nombre cli " + ti.getCliente().getNombre() + 
+					" detalles: " +" "+ti.getDetalles());
+		}
 	}
 }

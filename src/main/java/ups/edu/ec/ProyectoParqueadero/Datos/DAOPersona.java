@@ -13,6 +13,9 @@ import ups.edu.ec.ProyectoParqueadero.Modelo.Persona;
 @Stateless
 public class DAOPersona implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext
 	private EntityManager em;
 	

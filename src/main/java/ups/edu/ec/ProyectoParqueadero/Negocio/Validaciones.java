@@ -1,10 +1,21 @@
 package ups.edu.ec.ProyectoParqueadero.Negocio;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validaciones {
 
+	
+	ArrayList<String> miArrayList = new ArrayList<>();
+	public Validaciones(){
+		    miArrayList.add("vacio");
+	        miArrayList.add("ocupado");
+	        miArrayList.add("vacio");
+	        miArrayList.add("ocupado");
+	        miArrayList.add("vacio");
+	        
+	}
 	public boolean validarPlaca(String placa) {
 		//System.out.println("llegamos aqui  "+ placa);
 		String patron = "^[A-Z]{3}-\\d{3,4}$";
@@ -48,4 +59,6 @@ public class Validaciones {
 					return false;
 			}
 	}
+	
+	
 }

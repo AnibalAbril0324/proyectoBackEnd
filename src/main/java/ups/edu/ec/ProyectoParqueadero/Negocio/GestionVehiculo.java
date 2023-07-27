@@ -63,5 +63,4 @@ public class GestionVehiculo {
 		List<Vehiculo>vechiculos=daovehiculo.getAll();
 		return vechiculos;
 	}
-		
 }

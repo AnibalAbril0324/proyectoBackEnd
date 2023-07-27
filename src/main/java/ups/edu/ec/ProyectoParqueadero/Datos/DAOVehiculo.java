@@ -13,6 +13,8 @@ import ups.edu.ec.ProyectoParqueadero.Modelo.Vehiculo;
 @Stateless
 public class DAOVehiculo implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext
 	private EntityManager em;
 	

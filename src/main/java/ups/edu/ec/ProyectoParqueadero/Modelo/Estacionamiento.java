@@ -24,7 +24,7 @@ public class Estacionamiento {
 		this.codigo = codigo;
 	}
 
-	public String isEspacio() {
+	public String getEspacio() {
 		return espacio;
 	}
 
@@ -36,4 +36,6 @@ public class Estacionamiento {
 	public String toString() {
 		return "Estacionamiento [codigo=" + codigo + ", espacio=" + espacio + "]";
 	}
+
+	
 }
