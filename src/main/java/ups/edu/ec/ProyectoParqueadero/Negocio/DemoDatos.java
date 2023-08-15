@@ -84,28 +84,28 @@ public class DemoDatos {
 		veh.setColor("Rojo");
 		veh.setMarca("Chevrolet");
 		veh.setPlaca("AAA-123");
-		veh.setPersona(c1);
+		veh.setPersona(c);
 		daovehiculo.insertar(veh);
 		
 		Vehiculo veh1=new Vehiculo();
 		veh1.setColor("Plomo");
 		veh1.setMarca("Chevrolet");
 		veh1.setPlaca("AAA-567");
-		veh.setPersona(c1);
+		veh1.setPersona(c1);
 		daovehiculo.insertar(veh1);
 		
 		Vehiculo veh2=new Vehiculo();
 		veh2.setColor("Negro");
 		veh2.setMarca("Nissan");
 		veh2.setPlaca("ABC-344");
-		veh.setPersona(c1);
+		veh2.setPersona(c2);
 		daovehiculo.insertar(veh2);
 		
 		Vehiculo veh3=new Vehiculo();
 		veh3.setColor("Blanco");
 		veh3.setMarca("Hyundai");
 		veh3.setPlaca("ACF-978");
-		veh.setPersona(c1);
+		veh3.setPersona(c3);
 		daovehiculo.insertar(veh3);
 		
 		Estacionamiento est=new Estacionamiento();
