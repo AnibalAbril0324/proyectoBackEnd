@@ -7,7 +7,6 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -29,14 +28,19 @@ public class Ticket {
 	@Column(name="tic_fecha")
 	private Date fecha;
 	
+	@Column(name="tic_totalpago")
+	private double totalpago;
+	
 	@OneToOne
 	@JoinColumn(name="per_cedula")
 	private Persona cliente;
+	
 	
 	//@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="tic_codigo")
 	private List<DetalleTicket> detalles;
+	
 
 	public int getCodigo() {
 		return codigo;
@@ -60,6 +64,14 @@ public class Ticket {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public double getTotalpago() {
+		return totalpago;
+	}
+
+	public void setTotalpago(double totalpago) {
+		this.totalpago = totalpago;
 	}
 
 	public Persona getCliente() {
@@ -86,8 +98,10 @@ public class Ticket {
 	
 	@Override
 	public String toString() {
-		return "Ticket [codigo=" + codigo + ", numero=" + numero + ", fecha=" + fecha + ", cliente=" + cliente
-				+ ", detalles=" + detalles + "]";
+		return "Ticket [codigo=" + codigo + ", numero=" + numero + ", fecha=" + fecha + ", totalpago=" + totalpago
+				+ ", cliente=" + cliente + ", detalles=" + detalles + "]";
 	}
+	
+	
 	
 }

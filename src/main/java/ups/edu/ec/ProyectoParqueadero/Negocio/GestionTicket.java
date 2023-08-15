@@ -16,6 +16,8 @@ public class GestionTicket {
 	private DAOTicket daoticket;
 	
 	public List<Ticket>listadotickets() {
+		//System.out.println("buscando al ticket  "+daoticket.read(1));
+		
 		List<Ticket>listtickets=daoticket.getAll();
 		
 		
@@ -25,4 +27,5 @@ public class GestionTicket {
 		}
 		return listtickets;
 	}
+	
 }

@@ -1,7 +1,5 @@
 package ups.edu.ec.ProyectoParqueadero.Modelo;
 
-import java.time.LocalTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,10 +17,10 @@ public class DetalleTicket {
 	private int codigo;
 		
 	@Column(name="veh_horaentrada")
-	private LocalTime horaentrada;
+	private String horaentrada;
 	
 	@Column(name="veh_horasalida")
-	private LocalTime horasalida;
+	private String horasalida;
 	
 	@OneToOne
 	@JoinColumn(name="est_codigo")
@@ -40,19 +38,19 @@ public class DetalleTicket {
 		this.codigo = codigo;
 	}
 
-	public LocalTime getHoraentrada() {
+	public String getHoraentrada() {
 		return horaentrada;
 	}
 
-	public void setHoraentrada(LocalTime horaentrada) {
+	public void setHoraentrada(String horaentrada) {
 		this.horaentrada = horaentrada;
 	}
 
-	public LocalTime getHorasalida() {
+	public String getHorasalida() {
 		return horasalida;
 	}
 
-	public void setHorasalida(LocalTime horasalida) {
+	public void setHorasalida(String horasalida) {
 		this.horasalida = horasalida;
 	}
 

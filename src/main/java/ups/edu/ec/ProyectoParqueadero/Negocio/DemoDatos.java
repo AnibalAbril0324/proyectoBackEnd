@@ -1,8 +1,12 @@
 package ups.edu.ec.ProyectoParqueadero.Negocio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
@@ -39,6 +43,8 @@ public class DemoDatos {
 	@Inject
 	private DAOTicket daoticket;
 	
+	private Ticket ticketbuscado;
+	
 	@PostConstruct
 	public void init()  {
 		
@@ -74,29 +80,32 @@ public class DemoDatos {
 		daopersona.insertar(c3);
 		
 		
-		
 		Vehiculo veh=new Vehiculo();
 		veh.setColor("Rojo");
 		veh.setMarca("Chevrolet");
 		veh.setPlaca("AAA-123");
+		veh.setPersona(c1);
 		daovehiculo.insertar(veh);
 		
 		Vehiculo veh1=new Vehiculo();
 		veh1.setColor("Plomo");
 		veh1.setMarca("Chevrolet");
-		veh1.setPlaca("AAA-5677");
+		veh1.setPlaca("AAA-567");
+		veh.setPersona(c1);
 		daovehiculo.insertar(veh1);
 		
 		Vehiculo veh2=new Vehiculo();
 		veh2.setColor("Negro");
 		veh2.setMarca("Nissan");
-		veh2.setPlaca("ABC-3444");
+		veh2.setPlaca("ABC-344");
+		veh.setPersona(c1);
 		daovehiculo.insertar(veh2);
 		
 		Vehiculo veh3=new Vehiculo();
 		veh3.setColor("Blanco");
 		veh3.setMarca("Hyundai");
-		veh3.setPlaca("ACF-9878");
+		veh3.setPlaca("ACF-978");
+		veh.setPersona(c1);
 		daovehiculo.insertar(veh3);
 		
 		Estacionamiento est=new Estacionamiento();
@@ -119,20 +128,65 @@ public class DemoDatos {
 		
 		DetalleTicket det= new DetalleTicket();
 		det.setEstacionamiento(est);
-		det.setVehiculo(veh3);
-		det.setHoraentrada(LocalTime.now());
-		det.setHorasalida(LocalTime.now());
+		det.setVehiculo(veh);
+		
+		LocalTime horaentrada = LocalTime.now();
+		LocalTime horarestada=horaentrada.minusMinutes(2);
+		String hentrada = horarestada.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+		
+		LocalTime horasalida = LocalTime.now();
+		String hsalida = horasalida.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+		
+		det.setHoraentrada(hentrada);
+		det.setHorasalida(hsalida);
 		daodetalleticket.insertar(det);
 		
 		tic.addDetalle(det);
 		daoticket.insertar(tic);
 		
-		System.out.println("llego aqui");
 		
-		List<Ticket> tickets = daoticket.getAll();
-		for(Ticket ti: tickets) {
-			System.out.println("codigo: "+ti.getCodigo() + "ticket #: " + ti.getNumero() + "nombre cli " + ti.getCliente().getNombre() + 
-					" detalles: " +" "+ti.getDetalles());
-		}
+		
+		///////////////////////////////////////////////////////////////////////////////
+		
+		/*valor a pagar */
+		
+		System.out.println(" valor a pagar es "+valorPagar(hentrada, hsalida));
+		//double pago=valorPagar(hentrada, hsalida);
+		
+		
+		ticketbuscado=daoticket.read(1);
+		System.out.println(" antes del pago "+ticketbuscado.getTotalpago());
+		Ticket ti= new Ticket();
+		ti.setCodigo(ticketbuscado.getCodigo());
+		ti.setFecha(ticketbuscado.getFecha());
+		ti.setNumero(ticketbuscado.getNumero());
+		ti.setTotalpago(valorPagar(hentrada, hsalida));
+		ti.setCliente(ticketbuscado.getCliente());
+		
+		
+		daoticket.update(ti);
+		System.out.println("encontro ======= "+ticketbuscado);
+	}
+	public double valorPagar(String horaEntradaStr, String horaSalidaStr){
+		System.out.println("hora entrada  "+horaEntradaStr +" hora salida "+horaSalidaStr);
+		 double TARIFA_POR_HORA = 1.50;
+	        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	        try {
+	            Date horaEntrada = sdf.parse(horaEntradaStr);
+	            Date horaSalida = sdf.parse(horaSalidaStr);
+
+	            long duracionEstacionamientoMillis = horaSalida.getTime() - horaEntrada.getTime();
+	            long duracionHoras = TimeUnit.MILLISECONDS.toHours(duracionEstacionamientoMillis);
+
+	            if (duracionEstacionamientoMillis % 3600000 != 0) {
+	                duracionHoras++;
+	            }
+
+	            double totalAPagar = duracionHoras * TARIFA_POR_HORA;
+	            return totalAPagar;
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	            return 0.0;
+	        }
 	}
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Vehiculo {
@@ -21,7 +23,12 @@ public class Vehiculo {
 	
 	@Column(name="veh_placa")
 	private String placa;
+	
+	@OneToOne
+	@JoinColumn(name="per_cedula")
+	private Persona persona;
 
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -54,9 +61,18 @@ public class Vehiculo {
 		this.placa = placa;
 	}
 
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
 	@Override
 	public String toString() {
-		return "Vehiculo [codigo=" + codigo + ", color=" + color + ", marca=" + marca + ", placa=" + placa + "]";
+		return "Vehiculo [codigo=" + codigo + ", color=" + color + ", marca=" + marca + ", placa=" + placa
+				+ ", persona=" + persona + "]";
 	}
-	
+		
 }
